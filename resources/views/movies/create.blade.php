@@ -19,5 +19,6 @@
         <div class="mb-3">
             <button type="submit" class="btn btn-primary mb-3">Kreiraj</button>
         </div>
+        <i class="fa fa-file-image-o" aria-hidden="true"></i>
     </form>
 @endsection
