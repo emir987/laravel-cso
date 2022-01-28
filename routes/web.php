@@ -22,4 +22,13 @@ Route::get("/home", function () {
     return view("home.index");
 });
 
-Route::get('/movies', [MovieController::class, 'index']);
+// Route::get('/movies', [MovieController::class, 'index'])
+//     ->name('movies.index');
+
+// Route::get('/movies/create', [MovieController::class, 'create'])
+//     ->name('movies.create');
+
+// Route::delete('/movies/{movie}', [MovieController::class, 'destroy'])
+//     ->name('movies.destroy');
+
+Route::resource('movies', MovieController::class);

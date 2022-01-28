@@ -8,7 +8,7 @@
         @foreach ($movies as $movie)
             <li>{{ $movie->name }}</li>
             @if ($loop->last)
-                {{-- This is the last iteration --}}
+                <a href="{{ route('movies.create') }}"><li>Dodaj novi film</li></a>
             @endif
         @endforeach
     </ul>
