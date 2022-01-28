@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MovieController extends Controller
 {
@@ -18,7 +19,7 @@ class MovieController extends Controller
         $movies = Movie::orderBy('created_at', 'asc')->get();
 
         //filter na osnovu kolekcije (niz objekata koji nam je vratio model) => Movie::get() vraca kolekciju
-        $movies = Movie::get()->sortBy('created_at', 'asc');
+        // $movies = Movie::get()->sortBy('created_at', 'asc');
 
         return view('movies.index', [
             'movies' => $movies
@@ -56,15 +57,13 @@ class MovieController extends Controller
         return redirect()->route('movies.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        $movie = Movie::find($id);
+
+        return view('movies.show', [
+            'movie' => $movie
+        ]);
     }
 
     /**
