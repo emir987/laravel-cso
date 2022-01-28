@@ -14,7 +14,11 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::all();
+        //filter na osnovu baze (sql upit)
+        $movies = Movie::orderBy('created_at', 'asc')->get();
+
+        //filter na osnovu kolekcije (niz objekata koji nam je vratio model) => Movie::get() vraca kolekciju
+        $movies = Movie::get()->sortBy('created_at', 'asc');
 
         return view('movies.index', [
             'movies' => $movies
@@ -39,13 +43,17 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $movie = Movie::create(
-            [
-                'name' => $request->get('name')
-            ]
-        );
+        // $movie = Movie::create(
+        //     [
+        //         'name' => $request->get('name')
+        //     ]
+        // );
 
-        dd($movie);
+        $movie = new Movie();
+        $movie->name = $request->get('name');
+        $movie->save();
+
+        return redirect()->route('movies.index');
     }
 
     /**
