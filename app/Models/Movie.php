@@ -9,7 +9,7 @@ class Movie extends Model
 {
 	use HasFactory;
 
-	protected $fillable = ['name'];
+	protected $fillable = ['name', 'photo'];
 
 	public function actors()
 	{

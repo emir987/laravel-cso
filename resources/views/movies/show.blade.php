@@ -22,7 +22,6 @@
                     class="list-group-item list-group-item-action">{{ $actor->first_name }}
                     {{ $actor->last_name }}</a>
             @endforeach
-
         </div>
 
     </div>

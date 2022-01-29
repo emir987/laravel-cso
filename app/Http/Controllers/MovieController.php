@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -113,13 +115,34 @@ class MovieController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		$file = $request->file('photo');
+		$fileName = $file->getClientOriginalName();
+
+		if (Storage::exists('movies/' . $fileName)) {
+			$parts = explode('.', $fileName);  //odvajanje stringa po '.' 
+			$extension = array_pop($parts);    //brisanje poslednjeg elementa (ekstenzija), takodje vrati to sto je obrisano
+			$fileWithoutExtension = implode($parts);  //spojiti sve ostale djelove, ukoliko je npr fajl ime.prezime.jpg
+
+			$fileName = $fileWithoutExtension . Carbon::now()->timestamp . '.' . $extension;
+		}
+
+		$file->storeAs('movies', $fileName);
+
+		//putFile metoda daje random naziv fajlu, dok storeAs cuva fajl po zeljenom nazivu
+		// Storage::putFile('movies', $file);
+
 		$movie = Movie::find($id);
 		// $movie->name = $request->name;
 		// $movie->save();
 
 		// $movie->update(["name" => $request->get('name')]);
 
-		$movie->update($request->all());
+		$movie->update(
+			array_merge(
+				$request->all(),
+				['photo' => $fileName]
+			)
+		);
 
 		return redirect()->route('movies.show', $id)->with('msg', 'Uspjesno izmjenjeno');
 	}
