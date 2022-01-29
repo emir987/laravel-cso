@@ -12,6 +12,9 @@
             <label for="name" class="form-label">Naziv</label>
             <input name="name" type="text" class="form-control" id="name">
         </div>
+        @error('name')
+            <h6 class="text-danger">{{ $message }}</h6>
+        @enderror
         <div class="mb-3">
             <label for="description" class="form-label">Opis</label>
             <textarea class="form-control" name="description" id="description" rows="3"></textarea>
@@ -20,4 +23,6 @@
             <button type="submit" class="btn btn-primary mb-3">Kreiraj</button>
         </div>
     </form>
+
+
 @endsection

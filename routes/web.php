@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActorsController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/about', function () {
-    return view('about.index');
+	return view('about.index');
 });
 
-Route::get("/home", function () {
-    return view("home.index");
+//get,post,put,patch,delete, any,match,redirect,resource, view
+Route::get("/", function () {
+	return view("home.index");
 });
 
 // Route::get('/movies', [MovieController::class, 'index'])
@@ -32,3 +34,5 @@ Route::get("/home", function () {
 //     ->name('movies.destroy');
 
 Route::resource('movies', MovieController::class);
+
+Route::resource('actors', ActorsController::class);
